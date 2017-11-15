@@ -28,9 +28,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty(){return n == 0;}
-
-    public int size(){return n;}
-
+    
     public void checkChar(Item item){
         //inputs character and checks if it is already in the list or not
         //if it is, delete it and reinsert
