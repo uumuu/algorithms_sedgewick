@@ -29,6 +29,8 @@ public class MoveToFront<Item> implements Iterable<Item> {
 
     public boolean isEmpty(){return n == 0;}
 
+    public int size(){return n;}
+
     public void checkChar(Item item){
         //inputs character and checks if it is already in the list or not
         //if it is, delete it and reinsert
@@ -42,14 +44,12 @@ public class MoveToFront<Item> implements Iterable<Item> {
             Node<Item> deleteNodePrevious = null;
 
             CHAR_IN_LIST = false;
-            System.out.println("character is: "+item);
             if (first.item == item) {
                 CHAR_IN_LIST = true;
             } else {
                 while (currentNode.next != null) {
                     previousNode = currentNode;
                     if (currentNode.item.equals(item)) {
-//                        System.out.println(currentNode.item);
                         CHAR_IN_LIST = true;
                         deleteNode = currentNode.next;
                         deleteNodePrevious = previousNode;
@@ -58,20 +58,18 @@ public class MoveToFront<Item> implements Iterable<Item> {
                     else{
                         currentNode = currentNode.next;
                         if(currentNode.item.equals(item)){
-                        	CHAR_IN_LIST = true;
+                            CHAR_IN_LIST = true;
                             deleteNode = currentNode;
                             deleteNodePrevious = previousNode;
+                            break;
                         }
 
                     }
                 }
             }
             if (!CHAR_IN_LIST && !first.item.equals(item)) {
-            	System.out.println("INserting: "+item);
                 insert(item);
             } else if(CHAR_IN_LIST && !first.item.equals(item)) {
-//                System.out.println(deleteNodePrevious.item);
-                //remove item from list and reinsert
                 remove(deleteNodePrevious, deleteNode);
                 insert(item);
             }
@@ -90,7 +88,6 @@ public class MoveToFront<Item> implements Iterable<Item> {
     private Item remove(Node<Item> previousNode, Node<Item> deleteNode){
         //remove specific item from the list, sets previous node to point to node after
         Item item = deleteNode.item;
-        System.out.println("removing: " +item);
         previousNode.next = deleteNode.next;
         n--;
         return item;
@@ -136,13 +133,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
         input.close();
         for (int i = 0; i<str.length(); i++){
             list.checkChar(str.charAt(i));
-            System.out.println(list);
         }
-        System.out.println(list);
+           System.out.println(list);
     }
 }
-
-/*
-DEBUGGING, IT IS NOT REMOVING THE ORIGINAL CHARACTER FROM THE LIST CORRECTLY.
-does not remove from last position e.g abcdefa is afedcba, should be afedcb
- */
