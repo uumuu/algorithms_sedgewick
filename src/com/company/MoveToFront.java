@@ -28,7 +28,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
     }
 
     public boolean isEmpty(){return n == 0;}
-    
+
     public void checkChar(Item item){
         //inputs character and checks if it is already in the list or not
         //if it is, delete it and reinsert
@@ -61,7 +61,6 @@ public class MoveToFront<Item> implements Iterable<Item> {
                             deleteNodePrevious = previousNode;
                             break;
                         }
-
                     }
                 }
             }
@@ -132,6 +131,6 @@ public class MoveToFront<Item> implements Iterable<Item> {
         for (int i = 0; i<str.length(); i++){
             list.checkChar(str.charAt(i));
         }
-           System.out.println(list);
+        System.out.println(list);
     }
 }
