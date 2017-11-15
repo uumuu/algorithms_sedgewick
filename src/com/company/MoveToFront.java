@@ -1,5 +1,5 @@
 /*
-Data Structure that reads in a sequence of characters from input, stores them in a linked list
+	Data Structure that reads in a sequence of characters from input, stores them in a linked list
 No Duplicates.
 When you read in a previously unseen character it will insert it to the beginning of the list
 When a duplicate is found, delete the original that is stored in the list and reinsert to the front
@@ -42,16 +42,15 @@ public class MoveToFront<Item> implements Iterable<Item> {
             Node<Item> deleteNodePrevious = null;
 
             CHAR_IN_LIST = false;
+            System.out.println("character is: "+item);
             if (first.item == item) {
                 CHAR_IN_LIST = true;
-                System.out.println("true");
             } else {
                 while (currentNode.next != null) {
                     previousNode = currentNode;
-                    if (currentNode.item ==item) {
-                        System.out.println(currentNode.item);
+                    if (currentNode.item.equals(item)) {
+//                        System.out.println(currentNode.item);
                         CHAR_IN_LIST = true;
-                        System.out.println("true2");
                         deleteNode = currentNode.next;
                         deleteNodePrevious = previousNode;
                         break;
@@ -59,7 +58,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
                     else{
                         currentNode = currentNode.next;
                         if(currentNode.item.equals(item)){
-                            System.out.println("true3");
+                        	CHAR_IN_LIST = true;
                             deleteNode = currentNode;
                             deleteNodePrevious = previousNode;
                         }
@@ -67,10 +66,11 @@ public class MoveToFront<Item> implements Iterable<Item> {
                     }
                 }
             }
-            if (!CHAR_IN_LIST) {
+            if (!CHAR_IN_LIST && !first.item.equals(item)) {
+            	System.out.println("INserting: "+item);
                 insert(item);
-            } else {
-                System.out.println("hello");
+            } else if(CHAR_IN_LIST && !first.item.equals(item)) {
+//                System.out.println(deleteNodePrevious.item);
                 //remove item from list and reinsert
                 remove(deleteNodePrevious, deleteNode);
                 insert(item);
@@ -90,7 +90,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
     private Item remove(Node<Item> previousNode, Node<Item> deleteNode){
         //remove specific item from the list, sets previous node to point to node after
         Item item = deleteNode.item;
-        System.out.println(item);
+        System.out.println("removing: " +item);
         previousNode.next = deleteNode.next;
         n--;
         return item;
@@ -136,6 +136,7 @@ public class MoveToFront<Item> implements Iterable<Item> {
         input.close();
         for (int i = 0; i<str.length(); i++){
             list.checkChar(str.charAt(i));
+            System.out.println(list);
         }
         System.out.println(list);
     }
@@ -143,4 +144,5 @@ public class MoveToFront<Item> implements Iterable<Item> {
 
 /*
 DEBUGGING, IT IS NOT REMOVING THE ORIGINAL CHARACTER FROM THE LIST CORRECTLY.
+does not remove from last position e.g abcdefa is afedcba, should be afedcb
  */
