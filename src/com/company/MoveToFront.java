@@ -121,16 +121,4 @@ public class MoveToFront<Item> implements Iterable<Item> {
             return item;
         }
     }
-
-    public static void main(String[] args){
-        MoveToFront<Character> list = new MoveToFront<>();
-        System.out.println("Enter some characters, press '/' when finished.");
-        Scanner input = new Scanner(System.in);
-        String str = input.nextLine();
-        input.close();
-        for (int i = 0; i<str.length(); i++){
-            list.checkChar(str.charAt(i));
-        }
-        System.out.println(list);
-    }
 }

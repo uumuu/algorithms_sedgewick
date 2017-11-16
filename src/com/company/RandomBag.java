@@ -43,6 +43,7 @@ public class RandomBag<Item> implements Iterable<Item> {
     }
 
     public String toString(){
+        //prints out every non-null item in the bag.
         StringBuilder s = new StringBuilder();
         Random rand = new Random();
 
@@ -56,8 +57,10 @@ public class RandomBag<Item> implements Iterable<Item> {
             bag[i] = temp;
         }
         for(Item item : bag){
-            s.append(item);
-            s.append(" ");
+            if(item != null) {
+                s.append(item);
+                s.append(" ");
+            }
         }
         return s.toString();
     }
@@ -94,15 +97,5 @@ public class RandomBag<Item> implements Iterable<Item> {
             if (!hasNext()) throw new NoSuchElementException();
             return bag[i++];
         }
-    }
-
-        public static void main(String[] args) {
-            RandomBag<String> bag = new RandomBag<>();
-            bag.add("Hello");
-            bag.add("World");
-            bag.add("how");
-            bag.add("are");
-            bag.add("you");
-            System.out.println(bag);
     }
 }

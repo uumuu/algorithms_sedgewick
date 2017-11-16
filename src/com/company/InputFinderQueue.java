@@ -1,3 +1,7 @@
+/*
+Array-based queue client that takes K integer and prints Kth from last string found on standard input.
+
+ */
 package com.company;
 
 //1.3.15 Write a Queue client that takes a command-line argument k and prints the kth
@@ -106,14 +110,12 @@ public class InputFinderQueue<Item> implements Iterable<Item> {
         String[] words = str.split(" ");
 
         for (String word: words) {
-            System.out.println(word);
             inputQueue.enqueue(word);
         }
 
         for (int j = words.length; j> elementNum; j--){
             inputQueue.dequeue();
         }
-        System.out.println(inputQueue);
         String kString = inputQueue.peek();
 
         System.out.println("Kth String is: "+kString);

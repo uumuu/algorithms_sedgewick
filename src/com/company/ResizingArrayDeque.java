@@ -93,7 +93,6 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         //to the element behind it.
         if (isEmpty()) throw new NoSuchElementException("Underflow");
         Item item = q[last];
-        System.out.println(item);
         q[last] = null;
         n--;
         last--;
@@ -102,10 +101,13 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
     }
 
     public String toString(){
+        //prints out every non-null item in deque.
         StringBuilder s = new StringBuilder();
         for(Item item : q){
-            s.append(item);
-            s.append(" ");
+            if(item !=null) {
+                s.append(item);
+                s.append(" ");
+            }
         }
         return s.toString();
     }
@@ -135,6 +137,12 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         }
         System.out.println(deque);
         deque.popRight();
+        System.out.println(deque);
+        deque.pushLeft(99);
+        deque.pushLeft(78);
+        deque.pushLeft(56);
+        System.out.println(deque);
+        deque.popLeft();
         System.out.println(deque);
     }
 }

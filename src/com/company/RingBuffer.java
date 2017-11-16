@@ -89,22 +89,4 @@ public class RingBuffer<Item> implements Iterable<Item> {
             return item;
         }
     }
-
-    public static void main(String[] args){
-        RingBuffer<Integer> ring = new RingBuffer<>(5);
-
-        ring.add(5);
-        ring.add(27);
-        ring.add(98);
-        ring.add(3);
-        ring.add(13);
-        System.out.println(ring);
-        ring.remove();
-        ring.remove();
-        ring.remove();
-        ring.remove();
-        ring.remove();
-        ring.remove();
-        System.out.println(ring);
-    }
 }

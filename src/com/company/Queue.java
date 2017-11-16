@@ -229,20 +229,4 @@ public class Queue<Item> implements Iterable<Item> {
             return item;
         }
     }
-
-    public static void main(String[] args){
-        Queue<Integer> q = new Queue<>();
-
-        for (int i = 0; i < 11; i++){
-            q.enqueue(i);
-        }
-        q.enqueue(77);
-        q.enqueue(95);
-        q.enqueue(11);
-        System.out.println(q);
-        Node<Integer> first = q.getNode();
-        Node<Integer> reversedFirst = q.reverseList(first);
-        System.out.println(reversedFirst.item);
-        System.out.println(q);
-    }
 }

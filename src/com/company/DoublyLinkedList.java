@@ -47,6 +47,7 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
             x.next = node;
             previous.next = x;
             node.prev = x;
+            n++;
         }
     }
 
@@ -76,38 +77,6 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
                 }
             }
         }
-        //
-        //
-        //DEBUGGING PRINTS
-        //
-        //
-//        try {
-//            System.out.println("first prvious: "+first.prev.item);
-//        }catch(NullPointerException e){
-//            System.out.println("first prev: null");
-//        }
-//        System.out.println("first: "+first.item);
-//        try{
-//            System.out.println("first next: "+first.next.item);
-//        }catch(NullPointerException e){
-//            System.out.println("first next: null");
-//        }
-//
-//        try{
-//            System.out.println("last prev: "+last.prev.item);
-//        }catch(NullPointerException e){
-//            System.out.println("last prev: null");
-//        }
-//
-//        System.out.println("last: "+last.item);
-//
-//        try{
-//            System.out.println("last next: "+last.next.item);
-//        }catch(NullPointerException e){
-//            System.out.println("last next: null");
-//        }
-//        System.out.println();
-
         n++;
     }
     // DEBUGGING METHODS
@@ -139,25 +108,66 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
         else if(oldLast!= null){oldLast.next =last; }
     }
 
-//    public Item removeBeginning(){
-//
-//    }
-
-//    public  Item removeEnd(){
-//
-//    }
-
-    public void insertBeforeNode(Item item){
-
+    public Item removeBeginning(){
+        //removes first node by first = first.next
+        if(isEmpty()) throw new NoSuchElementException("List empty");
+        Item item = first.item;
+        first.prev.next = first.next;
+        first.next.prev = first.prev;
+        first = first.prev;
+        n--;
+        return item;
     }
 
-    public void insertAfterNode(Item item){
-
+    public  Item removeEnd(){
+        //last.previous = last.next
+        if(isEmpty()) throw new NoSuchElementException("List empty");
+        Item item = last.item;
+        last.prev.next = last.next;
+        last.next.prev = last.prev;
+        last = last.prev;
+        n--;
+        return item;
     }
 
-//    public Item removeNode(){
-//
-//    }
+    public void insertBeforeNode(Node<Item> node, Item item){
+        //take in a node, create a new node that sandwiches in between
+        // the node and node.previous.
+        //previousNode -> newNode -> node
+        Node<Item> previous = node.prev;
+        Node<Item> x = new Node<>();
+        x.item = item;
+        x.prev = previous;
+        x.next = node;
+        previous.next = x;
+        node.prev = x;
+        n++;
+    }
+
+    public void insertAfterNode(Node<Item> node, Item item){
+        //take in a node, create a new node that sandwiches between node and node.next
+        //node -> newNode -> nextNode
+        Node<Item> next = node.next;
+        Node<Item> x = new Node<>();
+        x.item = item;
+        x.prev = node;
+        x.next = node.next;
+        next.prev = x;
+        node.next = x;
+        n++;
+    }
+
+    public Item removeNode(Node<Item> node){
+        //node.previous.next = node.next;
+        // node.previous = node;
+        if(isEmpty()) throw new NoSuchElementException("List empty");
+        Item item = node.item;
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node = node.prev;
+        n--;
+        return item;
+    }
 
 
     public String toString(){
@@ -198,14 +208,6 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
             System.out.println(list);
         }
         System.out.println(list);
-//        int firstNext = list.returnFirstNext();
-//        int last = list.returnLast();
-//        int lastNext = list.returnLastNext();
-//        System.out.println("First: "+ first);
-//        System.out.println("FirstNext: "+ firstNext);
-//        System.out.println("Last: "+ last);
-//        System.out.println("LastNext: "+ lastNext);
-
     }
 
 

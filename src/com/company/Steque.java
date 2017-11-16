@@ -43,8 +43,6 @@ public class Steque<Item> implements Iterable<Item> {
             last = first;
             n++;
         }else{
-            System.out.println(first.item);
-            System.out.println(last.item);
             Node<Item> oldFirst = first;
             first = new Node<>();
             first.item = item;
@@ -101,23 +99,4 @@ public class Steque<Item> implements Iterable<Item> {
             return item;
         }
     }
-    public static void main(String[] args){
-        Steque<Integer> steque = new Steque<>();
-
-        for (int i = 1; i < 11; i++){
-            steque.push(i);
-        }
-        System.out.println(steque);
-
-        for (int j = 1; j < 6; j++)
-            steque.pop();
-        System.out.println(steque);
-
-        for (int k = 1; k < 6; k++)
-            steque.enqueue(k);
-        System.out.println(steque);
-
-
-    }
-
 }

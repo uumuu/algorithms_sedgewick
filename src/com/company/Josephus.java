@@ -32,8 +32,6 @@ public class Josephus implements Iterable {
             arr[i] = i+1;
         }
         System.out.println(this.toString());
-        System.out.println("count: "+count);
-        System.out.println("element: "+element);
 
         //array for output
         int[] deletedArray = new int[count];
@@ -45,7 +43,6 @@ public class Josephus implements Iterable {
                 System.out.print(deletedArray[j] + " ");
             }
         }
-        System.out.println("count: "+count);
         System.out.println(this.toString());
 
     }

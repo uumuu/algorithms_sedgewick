@@ -77,6 +77,7 @@ public class RandomQueue<Item> implements Iterable<Item> {
     }
 
     public String toString(){
+        //prints every non-null item in the queue
         StringBuilder s = new StringBuilder();
         Random rand = new Random();
 
@@ -91,8 +92,10 @@ public class RandomQueue<Item> implements Iterable<Item> {
         }
 
         for (Item item: q){
-            s.append(item);
-            s.append(" ");
+            if(item != null) {
+                s.append(item);
+                s.append(" ");
+            }
         }
         return s.toString();
     }
@@ -130,28 +133,5 @@ public class RandomQueue<Item> implements Iterable<Item> {
             if (!hasNext()) throw new NoSuchElementException();
             return q[i++];
         }
-    }
-
-    public static void main(String[] args){
-        RandomQueue<String> q = new RandomQueue<>();
-
-        q.enqueue("Hello");
-        q.enqueue("World");
-        q.enqueue("kaw4");
-        q.enqueue("is");
-        q.enqueue("mary");
-        q.enqueue("jack");
-        q.enqueue("a");
-        q.enqueue("nice");
-        q.enqueue("person");
-        q.enqueue("they");
-
-        System.out.println(q);
-        q.dequeue();
-        q.dequeue();
-        System.out.println(q);
-//        for(int i = 0; i <6; i++){
-//            System.out.println(q.sample());
-//        }
     }
 }
