@@ -111,16 +111,4 @@ public class GeneralisedQueueList<Item> implements Iterable<Item> {
             return item;
         }
     }
-    public static void main(String[] args){
-        GeneralisedQueueList<String> q = new GeneralisedQueueList<>();
-        q.insert("hello");
-        q.insert("my");
-        q.insert("name");
-        q.insert("is");
-        q.insert("luke");
-        System.out.println(q);
-        q.remove(5);
-        q.remove(1);
-        System.out.println(q);
-    }
 }

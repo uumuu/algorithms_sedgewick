@@ -66,8 +66,10 @@ public class GeneralisedQueue<Item>implements Iterable<Item> {
     public String toString(){
         StringBuilder s = new StringBuilder();
         for(Item item: q){
-            s.append(item);
-            s.append(" ");
+            if (item != null) {
+                s.append(item);
+                s.append(" ");
+            }
         }
         return s.toString();
     }
@@ -88,17 +90,5 @@ public class GeneralisedQueue<Item>implements Iterable<Item> {
             Item item = (Item) q[(i + first) % q.length];
             return item;
         }
-    }
-
-    public static void main(String[] args){
-        GeneralisedQueue<String> q = new GeneralisedQueue<>();
-        q.insert("hello");
-        q.insert("my");
-        q.insert("name");
-        q.insert("is");
-        q.insert("luke");
-        System.out.println(q);
-        q.remove(1);
-        System.out.println(q);
     }
 }

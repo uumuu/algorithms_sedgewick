@@ -120,30 +120,4 @@ public class Deque<Item> implements Iterable<Item> {
             return item;
         }
     }
-    public static void main(String[] args){
-        Deque<Integer> deque = new Deque<>();
-
-        for (int i = 1; i < 11; i++){
-            deque.pushLeft(i);
-        }
-        System.out.println(deque);
-
-        for (int j = 1; j < 6; j++)
-            deque.popLeft();
-        System.out.println(deque);
-
-        for (int k = 1; k < 6; k++)
-            deque.pushRight(k);
-        System.out.println(deque);
-
-        for (int l = 1; l < 4; l++)
-            deque.popRight();
-        System.out.println(deque);
-
-        deque.popLeft();
-        System.out.println(deque);
-
-
-    }
-
 }
