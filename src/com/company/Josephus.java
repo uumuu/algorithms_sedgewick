@@ -1,6 +1,11 @@
 /*
 Array-based Data Structure where N items are created in an array, and every Mth element
 is removed until only one element remains.
+It does this by keeping an element count over how many elements we have looped over.
+It will delete the element in the array if the elementCount is a multiple of M.
+When array length is less than M, it will sequentially loop over each item in the array as normal without
+deleting, until element count reaches a multiple of , when it will then delete the element.
+Therefore, the loop always results in one integer left over at the end.
  */
 package com.company;
 
@@ -24,27 +29,39 @@ public class Josephus implements Iterable {
     }
 
     @SuppressWarnings("unchecked")
+
     public void eliminate(){
-        // method that eliminates every Mth element until there is only one left.
-        // create new array that adds deleted items in the order they are deleted.
-        if(isEmpty() || element > count) throw new NoSuchElementException("Underflow");
+        if (isEmpty()) throw new NoSuchElementException("Underflow");
+
+        //create our initial array.
         for(int i = 0; i < count; i++){
             arr[i] = i+1;
         }
-        System.out.println(this.toString());
+        //tracker for how many elements we have looped over.
+        int elementCount = 1;
 
-        //array for output
-        int[] deletedArray = new int[count];
-        for(int j = 0; j < arr.length; j++){
-            if ((j) % element == 0){
-                deletedArray[j] = arr[j];
-                arr[j] = 0;
-                count--;
-                System.out.print(deletedArray[j] + " ");
+        while(count != 1){
+            for(int j = 0; j < arr.length; j++){
+                //if elementCount is a multiple of M, delete the element in the array
+                //we are currently looping over.
+                if((elementCount) % element ==0){
+                    arr[j] = 0;
+                    count--;
+                }
+                elementCount++;
             }
-        }
-        System.out.println(this.toString());
 
+            //updates the array, removing eliminates integers so it is ready
+            //for the next loop over.
+            int insertPos = 0;
+            int[] temp = new int[count];
+            for(int k = 0; k < arr.length; k++){
+                if(arr[k] != 0){
+                    temp[insertPos++] = arr[k];
+                }
+            }
+            arr = temp;
+        }
     }
     @Override
     public String toString(){
@@ -72,11 +89,5 @@ public class Josephus implements Iterable {
             if (!hasNext()) throw new NoSuchElementException();
             return arr[i++];
         }
-    }
-
-    public static void main(String[] args){
-        Josephus arr = new Josephus(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-        arr.eliminate();
-        System.out.println(arr);
     }
 }

@@ -2,8 +2,7 @@
 Array-based Data structure that is first-in-first-out.
 Ring-architecture (last -> first)
 Fixed size of N.
-Wraparound needs to be implemented when adding/removing and also when inserting when the buffer is full,
-instead of throwing an error, it should maybe replace the first inserted[?]
+Elements wrap around with the usage of modulus increment (last = (last+1) % max)
  */
 
 package com.company;
@@ -29,22 +28,31 @@ public class RingBufferArray<Item> implements Iterable<Item> {
 
     public boolean isEmpty(){return N == 0;}
 
-    public boolean isFull(){return N == max;}
+    public boolean isFull(){
+        //is full if first is one element higher than last after being modded by max
+        return first == (last+1) % max;
+    }
 
     public void add(Item item){
+        //last increments, but wraps around to be zero if it is equal to max
+        //if the array is empty, we need to set first to be last as it will be
+        //the first element in the array.
         if(isFull()){throw new NoSuchElementException("Queue is full.");}
-        ring[last++] = item;
-        if(last == ring.length) last = 0;
+        last = (last+1) % max;
+        ring[last] = item;
+        if(isEmpty()){first = last;}
         N++;
     }
 
     public Item remove(){
+        //gets item at ring[first], sets that position to be null
+        //then increments first with the wraparound feature.
         if(isEmpty()){throw new NoSuchElementException("Queue is empty");}
-            Item item = ring[first];
-            ring[first] = null;
-            first++;
-            N--;
-            return item;
+        Item item = ring[first];
+        ring[first] = null;
+        first = (first+1) % max;
+        N--;
+        return item;
     }
 
     public String toString(){
@@ -73,27 +81,6 @@ public class RingBufferArray<Item> implements Iterable<Item> {
             Item item = (Item) ring[(i + first) % ring.length];
             i++;
             return item;
-
         }
-    }
-
-    public static void main(String[] args){
-        RingBufferArray<Integer> ring = new RingBufferArray<>(5);
-        for(int i = 1; i < 6; i++){
-            ring.add(i);
-        }
-        System.out.println(ring);
-        ring.remove();
-        System.out.println(ring);
-        Iterator iter = ring.iterator();
-
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-        System.out.println(iter.next());
-
     }
 }

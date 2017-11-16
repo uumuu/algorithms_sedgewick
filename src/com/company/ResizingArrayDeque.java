@@ -17,6 +17,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
     private int first;
     private int last;
 
+    @SuppressWarnings("unchecked")
     public ResizingArrayDeque(){
         q = (Item[]) new Object[2];
         n = 0;
@@ -32,6 +33,11 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         return n;
     }
 
+    //DEBUGGING METHOD DELETE AFTER
+    public int returnLast(){
+        return last;
+    }
+    @SuppressWarnings("unchecked")
     public void resize(int capacity){
         //resizes array to capacity size by copying queue's elements to a temporary array
         //after modulus'ing it so it wraps around the length of the array.
@@ -44,7 +50,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         first = 0;
         last = n;
     }
-
+    @SuppressWarnings("unchecked")
     public void pushLeft(Item item){
         //pushes to the beginning of the array by shifting every element forward by one
         //then inserting the new element at first
@@ -70,7 +76,8 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         //adds to the end of the list by advancing last element.
         if (n == q.length){resize(2*q.length);}
         q[last++] = item;
-        if(last == q.length){last = 0;}
+        if(last == q.length){
+            last = 0;}
         n++;
     }
 
@@ -83,8 +90,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         n--;
         first++;
         if(first == q.length){ first = 0;}
-        if(n > 0 && n == q.length /4){
-            System.out.println("yes"); resize(q.length / 2);}
+        if(n > 0 && n == q.length /4){resize(q.length / 2);}
         return item;
     }
 
@@ -93,6 +99,12 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         //to the element behind it.
         if (isEmpty()) throw new NoSuchElementException("Underflow");
         Item item = q[last];
+        //if q[last] is null, it's not really the last element so we need to return the previous
+        //this happens as a result of the resizing function of the structure, where last can constantly
+        //be changing in position, occasionally it is set to zero.
+        if (item == null){
+            item = q[last-=1];
+        }
         q[last] = null;
         n--;
         last--;
@@ -127,22 +139,5 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
             Item item = q[(i + first) % q.length];
             return item;
         }
-    }
-
-    public static void main(String[] args){
-        ResizingArrayDeque<Integer> deque = new ResizingArrayDeque<>();
-
-        for(int i = 1; i< 11; i++) {
-            deque.pushRight(i);
-        }
-        System.out.println(deque);
-        deque.popRight();
-        System.out.println(deque);
-        deque.pushLeft(99);
-        deque.pushLeft(78);
-        deque.pushLeft(56);
-        System.out.println(deque);
-        deque.popLeft();
-        System.out.println(deque);
     }
 }
