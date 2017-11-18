@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Queue<Item> implements Iterable<Item> {
+    private Queue<Item> copy;
     private Node<Item> first;
     private Node<Item> last;
     private int n;
@@ -23,6 +24,11 @@ public class Queue<Item> implements Iterable<Item> {
         first = null;
         last = null;
         n = 0;
+        copy = this;
+    }
+
+    public Queue<Item> returnQueueCopy(){
+        return copy;
     }
 
     public boolean isEmpty(){
@@ -228,5 +234,16 @@ public class Queue<Item> implements Iterable<Item> {
             current = current.next;
             return item;
         }
+    }
+    public static void main(String[] args){
+        Queue<Integer> q = new Queue<>();
+        Queue<Integer> copy = q.returnQueueCopy();
+        for(int i = 0; i < 6; i++){
+            q.enqueue(i);
+        }
+        copy.dequeue();
+        System.out.println(q);
+        System.out.println(copy);
+
     }
 }
