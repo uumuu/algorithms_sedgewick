@@ -27,9 +27,30 @@ public class Queue<Item> implements Iterable<Item> {
         copy = this;
     }
 
-    public Queue<Item> returnQueueCopy(){
-        return copy;
+    public Queue(Queue<Item> original){
+        //copy constructor used to copy the contents of one queue to another one.
+        //we do this by looping through the original queue and copying the nodes
+        //to the new queue.
+        //both queues are independent from eachother and can be modified freely on their own.
+
+        //check if original queue head node is null
+        //if it is, we cannot copy anything so we return.
+        if (original.first == null){
+            this.first = null;
+            System.out.println("Queue is empty, will not copy anything.");
+            return;
+        }else {
+            this.first = original.first;
+            Node<Item> current = new Node<>();
+            current = original.first;
+            //loop through original list and enqueue everything we come across.
+            while(current!= null){
+                this.enqueue(current.item);
+                current = current.next;
+            }
+        }
     }
+
 
     public boolean isEmpty(){
         return first == last;
@@ -209,6 +230,7 @@ public class Queue<Item> implements Iterable<Item> {
     public String toString(){
         StringBuilder s = new StringBuilder();
         for (Item item : this) {
+            System.out.println("item: "+item);
             s.append(item);
             s.append(" ");
         }
@@ -234,16 +256,5 @@ public class Queue<Item> implements Iterable<Item> {
             current = current.next;
             return item;
         }
-    }
-    public static void main(String[] args){
-        Queue<Integer> q = new Queue<>();
-        Queue<Integer> copy = q.returnQueueCopy();
-        for(int i = 0; i < 6; i++){
-            q.enqueue(i);
-        }
-        copy.dequeue();
-        System.out.println(q);
-        System.out.println(copy);
-
     }
 }
