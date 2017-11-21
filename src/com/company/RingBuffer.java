@@ -27,6 +27,15 @@ public class RingBuffer<Item> implements Iterable<Item> {
         max = limit;
     }
 
+    public void catenate(RingBuffer<Item> q){
+        if (q.isEmpty() || this.isEmpty()){
+            throw new NoSuchElementException("Empty queue/s.");
+        }
+        last.next = q.first;
+        last = q.last;
+        last.next = first;
+    }
+
     public boolean isEmpty(){return N == 0;}
 
     public boolean isFull(){return N == max;}
