@@ -29,7 +29,7 @@ public class FileList<Item> {
     }
 
     public void evaluateDirectory(File dir){
-        //evaluates current directory, adds all directories and files to add() method   
+        //evaluates current directory, adds all directories and files to add() method
         //which enqueues the string name to queue.
         //if directory is found, this method is recalled on that directory.
         if(!dir.isDirectory()){
